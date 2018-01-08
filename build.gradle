@@ -1,0 +1,56 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.lianjia.commerce'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+	compile group: 'io.buji', name: 'buji-pac4j', version: '3.0.0'
+    compile 'org.pac4j:pac4j-cas:2.2.1'
+	compile 'org.pac4j:spring-webmvc-pac4j:2.1.0'
+	compile 'org.apache.shiro:shiro-spring:1.4.0'
+	compile 'redis.clients:jedis:2.9.0'
+
+
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+task runExampleService1(dependsOn: [classes], type: JavaExec) {
+	group = "Run tasks"
+	description = "Run the example service1"
+	main = "com.lianjia.commerce.meima.Application"
+	classpath = sourceSets.main.runtimeClasspath
+	args = ["--server.port=8080"]
+}
+
+task runExampleService2(dependsOn: [classes], type: JavaExec) {
+	group = "Run tasks"
+	description = "Run the example service2"
+	main = "com.lianjia.commerce.meima.Application"
+	classpath = sourceSets.main.runtimeClasspath
+	args = ["--server.port=8081"]
+}
